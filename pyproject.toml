@@ -27,6 +27,16 @@ dependencies = [
 requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project.optional-dependencies]
+dev = [
+    "torch", 
+    "torchvision",
+    "onnx",
+    "onnxruntime", 
+    "onnxruntime-gpu",
+    "safetensors",
+]
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
