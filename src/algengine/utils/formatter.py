@@ -1,6 +1,5 @@
 import os
 import re
-import cv2
 import platform
 from typing import NoReturn
 from .misc import is_not_none
