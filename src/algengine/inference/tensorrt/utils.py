@@ -6,6 +6,10 @@ import torch
 import tensorrt as trt
 import pycuda.driver as _cuda
 
+# to install pycuda
+# export CUDA_HOME=/usr/local/cuda
+# export PATH=$CUDA_HOME/bin:$PATH
+# export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 
 LIB_CUDART = cdll.LoadLibrary('libcudart.so')
 LIB_CUDART.cudaGetErrorString.restype = c_char_p

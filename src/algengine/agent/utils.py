@@ -5,7 +5,7 @@ import json
 JSON_PATTERN = re.compile(r'```json\s*(.*?)\s*```', re.DOTALL)
 
 
-def str_to_schema(string, schema=None):
+def str2obj(string, obj=dict):
     match = re.search(JSON_PATTERN, string)
     if match:
         json_string = match.group(1)
@@ -15,6 +15,6 @@ def str_to_schema(string, schema=None):
         except json.JSONDecodeError as e:
             print(e)
         else:
-            return schema(**data) if schema is not None else data
-    return schema() if schema is not None else None
+            return obj(**data) if obj is not None else data
+    return obj() if obj is not None else None
     
