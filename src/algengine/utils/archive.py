@@ -93,5 +93,5 @@ class ArchiveManager:
 
 
 
-if __name__ == '__main__':
-    ArchiveManager.make_archive(r'\data\dataset2\Workshop\sunjianyao\general\redetect_result\20230802_kshl_extract_100')
+# if __name__ == '__main__':
+#     ArchiveManager.make_archive(r'\data\dataset2\Workshop\sunjianyao\general\redetect_result\20230802_kshl_extract_100')

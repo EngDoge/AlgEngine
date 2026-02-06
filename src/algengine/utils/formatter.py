@@ -159,7 +159,40 @@ class SuffixFormatter:
                 print('> Working on:', work_dir)
             SuffixFormatter.separate_by_suffix(work_dir)
 
+def service_info(service: str) -> str:
+    """Get service information.
 
+    Args:
+        service (str): Service name.
+
+    Returns:
+        str: Service information.
+    """
+    return f"<{'Service':^7}> {service:=^40}"
+
+
+def phase_info(phase: str) -> str:
+    """Get phase information.
+
+    Args:
+        phase (str): Phase name.
+
+    Returns:
+        str: Phase information.
+    """
+    return f"<{'Phase':^7}> {phase:-^40}"
+
+
+def stage_info(stage: str) -> str:
+    """Get stage information.
+
+    Args:
+        stage (str): Stage name.
+
+    Returns:
+        str: Stage information.
+    """
+    return f"<{'Stage':^7}> {stage}"
 
 if __name__ == '__main__':
     print(SuffixFormatter.is_supported_format('.jpg.x'))

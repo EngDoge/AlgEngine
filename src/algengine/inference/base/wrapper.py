@@ -5,7 +5,7 @@ import numpy as np
 import torch.nn as nn
 
 
-from ...logging import supervisor
+from ...utils.logging import supervisor
 
 class BaseWrapper(nn.Module, metaclass=ABCMeta):
     def __init__(self, output_names: Sequence[str] | None = None):

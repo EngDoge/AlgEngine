@@ -1,6 +1,6 @@
 from functools import wraps
 from time import time, strftime, localtime
-from ..logging.supervisor import supervisor
+from .logging.supervisor import supervisor
 
 
 class TimerError(Exception):
