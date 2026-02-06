@@ -27,9 +27,9 @@ def parallel_run(func: Callable,
         
         with Pool(num_workers) as pool:
             apply_fn = partial(func, **kwargs)
-            res = [pool.apply_async(func=apply_fn,
+            futures = [pool.apply_async(func=apply_fn,
                                     args=(item,),
                                     callback=callback) for item in data]
-            result = {item: future.get(timeout=time_out) for item, future in zip(data, res)}
+            result = [future.get(timeout=time_out) for future in futures]
         if with_return:
             return result

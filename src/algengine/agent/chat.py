@@ -1,8 +1,11 @@
 from openai import OpenAI
 
 class ChatAgent:
+    STATE_VAR = ['_base_url', '_model', '_api_key', '_system_prompt']
+    
     def __init__(self, base_url, model, api_key='', system_prompt=None):
         self._client = OpenAI(api_key=api_key, base_url=base_url)
+        self._api_key = api_key
         self._model = model
         self._base_url = base_url
         self._system_prompt = system_prompt or "You are a helpful assistant."
@@ -40,3 +43,13 @@ class ChatAgent:
             ],
         )
         return response.choices[0].message.content
+    
+    def __getstate__(self):
+        return {key[1:]: getattr(self, key) for key in self.STATE_VAR}
+    
+    def __setstate__(self, state):
+        self._client = OpenAI(api_key=state['api_key'], base_url=state['base_url'])
+        self._api_key = state['api_key']
+        self._model = state['model']
+        self._base_url = state['base_url']
+        self._system_prompt = state['system_prompt'] or "You are a helpful assistant."
