@@ -105,7 +105,7 @@ class SuffixFormatter:
     def is_cur(file: str) -> bool:
         _, ext = os.path.splitext(file)
         suffix_case = '|'.join(SuffixFormatter.MAPPER.keys())
-        suffix_pattern = re.compile(f'_(?P<suffix>{suffix_case})( ?\(\d+\))?' + ext)
+        suffix_pattern = re.compile(rf'_(?P<suffix>{suffix_case})( ?\(\d+\))?' + ext)
         res = re.search(suffix_pattern, file)
         if res is not None or ext[1:] not in SuffixFormatter.SUPPORT_FORMAT:
             return False
