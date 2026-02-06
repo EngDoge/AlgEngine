@@ -1,5 +1,5 @@
 import os
-
+from pathlib import Path
 
 def exists_or_make(path: str, make_dir: bool = True) -> str:
     if not os.path.exists(path):
@@ -33,3 +33,8 @@ def is_not_none(obj):
 
 def convert2map(src: dict):
     return {label: k for k, v in src.items() for label in v}
+
+def is_url(path: str | Path) -> bool:
+    if isinstance(path, Path):
+        path = str(path)
+    return path.startswith('http')

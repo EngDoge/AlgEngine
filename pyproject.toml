@@ -34,6 +34,7 @@ dev = [
     "onnx",
     "onnxruntime", 
     "onnxruntime-gpu",
+    'einops',
     "safetensors",
     "json-repair"
 ]
