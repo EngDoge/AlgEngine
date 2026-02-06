@@ -224,6 +224,6 @@ class ClassMapper:
 FACEPARSE = ClassMapper('FACEPARSE')
 
 if __name__ == '__main__':
-    print(len(AVICompMapper.classes))
-    AVICompMapper.update_mapper(merge_palette={'Background': ['ViaCircle', 'SurfaceFinish', 'Circuit', 'OpticalPoint']})
-    print(len(AVICompMapper.classes))
+    print(len(FACEPARSE.classes))
+    FACEPARSE.update_mapper(merge_palette={'Background': ['ViaCircle', 'SurfaceFinish', 'Circuit', 'OpticalPoint']})
+    print(len(FACEPARSE.classes))

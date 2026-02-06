@@ -7,8 +7,8 @@ from skimage.measure import label, regionprops
 from typing import List, Dict, Tuple, Union, Iterator, Optional
 
 from .image import SingleImage
-from datatools.image.mappers import ClassMapper
-from datatools.image.convertor import ImageConvertor
+from .mappers import ClassMapper
+from .convertor import ImageConvertor
 
 
 def extract_layer(mask: np.ndarray,
