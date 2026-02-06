@@ -20,16 +20,15 @@ def parallel_run(func: Callable,
         result = dict()
         kwargs = dict() if kwargs is None else kwargs
         total_num = len(data)
-        pbar = tqdm(total=total_num)
-
-        def callback(*args):
-            pbar.update()
-        
-        with Pool(num_workers) as pool:
-            apply_fn = partial(func, **kwargs)
-            futures = [pool.apply_async(func=apply_fn,
-                                    args=(item,),
-                                    callback=callback) for item in data]
-            result = [future.get(timeout=time_out) for future in futures]
-        if with_return:
-            return result
+        with tqdm(total=total_num) as pbar:
+            def callback(*args):
+                pbar.update()
+            
+            with Pool(num_workers) as pool:
+                apply_fn = partial(func, **kwargs)
+                futures = [pool.apply_async(func=apply_fn,
+                                            args=(item,),
+                                            callback=callback) for item in data]
+                result = [future.get(timeout=time_out) for future in futures]
+            if with_return:
+                return result
