@@ -12,7 +12,7 @@ import yaml
 from PIL import Image
 from hashlib import md5
 from functools import wraps
-from typing import Tuple, Callable
+from typing import Tuple, Callable, Optional
 
 from ..utils import PathFormatter, SuffixFormatter, convert2map, exists_or_make
 # from datatools.image.mappers import ClassMapper
@@ -54,7 +54,7 @@ class SingleImage:
                  imread: Callable | None = None,
                  backend: str = 'cv2',
                  imread_flag: int = cv2.IMREAD_UNCHANGED,
-                 parent: 'ImageData' | None = None):
+                 parent: Optional['ImageData'] = None):
         """ Image Object Compatible with 'cv2' and 'pillow'.
 
         Properties:
@@ -844,7 +844,7 @@ class ImageData:
         #             break
         return renamed
 
-    def __get_attr(self, attr: str) -> 'SingleImage' | str | None:
+    def __get_attr(self, attr: str) -> Optional['SingleImage'] | str:
         attr = attr.lower()
         ext = 'png' if attr not in ['ann'] else 'json'
         latent_attr = '_' + attr
@@ -876,7 +876,7 @@ class ImageData:
         os.makedirs(osp.dirname(new_attr), exist_ok=True)
         shutil.move(ori_attr, new_attr)
 
-    def __getattr__(self, item: str) -> 'SingleImage' | str | None:
+    def __getattr__(self, item: str) -> Optional['SingleImage'] | str:
         item = item.lower()
         if item in ImageData.ALLOWED:
             return self.__get_attr(item)
