@@ -111,6 +111,9 @@ class DataContainer(defaultdict):
         for v in self.values():
             total += len(v)
         return total
+    
+    def __len__(self):
+        return len(self.keys())
 
     def is_empty(self) -> bool:
         return not self
