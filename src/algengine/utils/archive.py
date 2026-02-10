@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 from typing import Optional, List
 
 import zipfile
@@ -65,10 +66,10 @@ class ArchiveManager:
                      force: bool = False,
                      target: Optional[List[str]] = None,
                      exceptions: Optional[List[str]] = None):
-        src = PathFormatter.format(src)
-        src_root, src_name = os.path.split(src)
-        name = src_name if name is None else name
-        dst = src_root if dst is None else dst
+        src = Path(PathFormatter.format(src))
+        # src_root, src_name = os.path.split(src)
+        name = src.name if name is None else name
+        dst = src.parent if dst is None else dst
         if target is None and exceptions is None:
             file_path = shutil.make_archive(os.path.join(dst, name), 'zip', src)
         else:
