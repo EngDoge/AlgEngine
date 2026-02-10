@@ -10,25 +10,25 @@ def parallel_run(func: Callable,
                  time_out: Optional[int] = None,
                  with_return: bool = False,
                  **kwargs) -> dict | None:
-        """
-        The original synchronized function should be defined as:
-        >>> def func(item, *args, **kwargs):
-                pass
+    """
+    The original synchronized function should be defined as:
+    >>> def func(item, *args, **kwargs):
+            pass
 
-        """
+    """
 
-        result = dict()
-        kwargs = dict() if kwargs is None else kwargs
-        total_num = len(data)
-        with tqdm(total=total_num) as pbar:
-            def callback(*args):
-                pbar.update()
-            
-            with Pool(num_workers) as pool:
-                apply_fn = partial(func, **kwargs)
-                futures = [pool.apply_async(func=apply_fn,
-                                            args=(item,),
-                                            callback=callback) for item in data]
-                result = [future.get(timeout=time_out) for future in futures]
-            if with_return:
-                return result
+    result = dict()
+    kwargs = dict() if kwargs is None else kwargs
+    total_num = len(data)
+    with tqdm(total=total_num) as pbar:
+        def callback(*args):
+            pbar.update()
+        
+        with Pool(num_workers) as pool:
+            apply_fn = partial(func, **kwargs)
+            futures = [pool.apply_async(func=apply_fn,
+                                        args=(item,),
+                                        callback=callback) for item in data]
+            result = [future.get(timeout=time_out) for future in futures]
+        if with_return:
+            return result

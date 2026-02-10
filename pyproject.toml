@@ -38,6 +38,7 @@ dev = [
     "onnxruntime-gpu",
     "einops",
     "pycuda",
+    "omegaconf",
     "safetensors",
     "json-repair",
     "openai",
