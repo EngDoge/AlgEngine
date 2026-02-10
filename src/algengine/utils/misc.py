@@ -1,5 +1,28 @@
 import os
+import socket
 from pathlib import Path
+
+
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        return s.getsockname()[0]
+    except Exception:
+        return "127.0.0.1"
+    finally:
+        s.close()
+        
+def is_port_occupied(host, port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.connect((host, port))
+            return True
+        except OSError:
+            return False
+        
+def is_local_port_occupied(port):
+    return is_port_occupied(host=get_local_ip(), port=port)
 
 def exists_or_make(path: str, make_dir: bool = True) -> str:
     if not os.path.exists(path):
