@@ -20,7 +20,9 @@ dependencies = [
     "opencv-python",
     "Pillow",
     "pandas",
-    "click"
+    "click",
+    "colorama",
+    "colorlog"
 ]
 
 [build-system]
@@ -34,8 +36,8 @@ dev = [
     "onnx",
     "onnxruntime", 
     "onnxruntime-gpu",
-    'einops',
-    'pycuda',
+    "einops",
+    "pycuda",
     "safetensors",
     "json-repair",
     "openai",
