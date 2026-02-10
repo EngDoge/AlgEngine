@@ -60,29 +60,29 @@ class Config(dict):
     
     @classmethod
     def from_json(cls, file):
-        with open(file, 'r') as f:
+        with open(os.path.expanduser(file), 'r') as f:
             return cls(json.load(file))
         
     @classmethod
     def from_yaml(cls, file):
-        with open(file, 'r') as f:
+        with open(os.path.expanduser(file), 'r') as f:
             return cls(yaml.safe_load(f))
         
     @classmethod
     def from_file(cls, file):
         suffix = Path(file).suffix
-        if suffix in ['xml', 'yaml']:
+        if suffix in ['.xml', '.yaml']:
             return cls.from_yaml(file)
-        elif suffix in ['json', 'jsonl']:
+        elif suffix in ['.json', '.jsonl']:
             return cls.from_json(file)
         else:
             raise NotImplementedError(f"Not Supported File Type ({suffix})")
     
     def to_file(self, file, overwrite=False, **kwargs):
         suffix = Path(file).suffix
-        if suffix in ['xml', 'yaml']:
+        if suffix in ['.xml', '.yaml']:
             return self.to_yaml(file=file, overwrite=overwrite, **kwargs)
-        elif suffix in ['json', 'jsonl']:
+        elif suffix in ['.json', '.jsonl']:
             return self.to_json(file, overwrite=overwrite, **kwargs)
         else:
             raise NotImplementedError(f"Not Supported File Type ({suffix})")

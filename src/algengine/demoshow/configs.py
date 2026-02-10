@@ -22,3 +22,15 @@ DEFAULT_CONFIGS = {
         },
     }
 }
+
+
+if __name__ == '__main__':
+    import os
+    from pathlib import Path
+    from algengine.utils import Config
+    
+    export_root = Path(os.path.expanduser('~/app_configs'))
+    for app, app_config in DEFAULT_CONFIGS.items():
+        config = Config(**app_config)
+        config.to_file(export_root / f"{app.lower()}.yaml")
+        
