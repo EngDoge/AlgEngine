@@ -37,7 +37,9 @@ dev = [
     'einops',
     'pycuda',
     "safetensors",
-    "json-repair"
+    "json-repair",
+    "openai",
+    "google-genai"
 ]
 
 
