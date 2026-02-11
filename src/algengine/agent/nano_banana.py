@@ -1,5 +1,6 @@
 from PIL import Image
 from io import BytesIO
+import base64
 
 from google import genai
 
@@ -10,16 +11,20 @@ class NanoBananaGenerator:
         )
         self.model = model
         
-    def generate(self, prompt: str, images: list[Image.Image] | Image.Image | None = None):
+    def generate(self, prompt: str, images: list[Image.Image] | Image.Image | None = None, return_base64: bool = False):
         response = self.client.models.generate_content(
             model=self.model,
-            contents=[prompt, *images] if isinstance(images, list) else [prompt, images],
+            # contents=[prompt, *images] if isinstance(images, list) else [prompt, images],
+            contents=[prompt, images],
         )
         
         results = []
         for part in response.candidates[0].content.parts:
             text = part.text if part.text is not None else None
-            image = Image.open(BytesIO(part.inline_data.data)) if part.inline_data is not None else None
+            image = (Image.open(BytesIO(part.inline_data.data)) 
+                     if not return_base64 
+                     else base64.b64encode(BytesIO(part.inline_data.data).getvalue()).decode()
+                     if part.inline_data is not None else None)
             results.append((text, image))
         
         return results
